@@ -1,0 +1,29 @@
+#!/bin/bash
+set +x
+read -s -p "Enter Password for sudo: " sudoPW
+
+# Install all apt-get dependencies
+DEPENDECIES="git zsh ghc cabal-install silversearcher-ag"
+echo $sudoPW | sudo -S apt-get install -y $DEPENDECIES
+
+# Install pip dependencies to user and system
+pip install --user powerline-status
+echo $sudoPW | sudo -S pip install virtualenvwrapper
+
+# Update cabal
+cabal update
+cabal install base text directory filepath process
+
+# Install powerline
+LOCAL_POWERLINE_CFG=~/.config/powerline
+[ ! -f $LOCAL_POWERLINE_CFG ] || ln -s ~/dotfiles/powerline/config_files $LOCAL_POWERLINE_CFG 
+
+# Install using rcup tool
+env RCRC=$HOME/dotfiles/rcrc rcup
+
+# Install fzf in the termnial
+# Check if it fzf repo was downloaded for the vim plugin
+FZF_REPO='~/.fzf'
+if [ -f $FZF_REPO ]; then
+  ./fzf/install -all
+fi

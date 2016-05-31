@@ -1,0 +1,23 @@
+# Add ppa
+sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
+sudo apt-get update
+
+# Install dependecies
+DEPENDENCIES="zsh pip ghc cabal-install tmux vim fontsconfig rcm"
+
+sudo apt-get install -y $DEPENDENCIES
+
+# Install antigen-hs: https://github.com/Tarrasch/antigen-hs
+cabal update
+cabal install base text directory filepath process
+git clone https://github.com/Tarrasch/antigen-hs.git ~/.zsh/antigen-hs/
+touch ~/.zsh/MyAntigen.hs
+$EDITOR ~/.zsh/MyAntigen.hs
+
+# Install powerline
+pip install --user powerline-status
+wget https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf
+wget https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf
+mv PowerlineSymbols.otf ~/.fonts/
+fc-cache -vf ~/.fonts/
+mv 10-powerline-symbols.conf ~/.config/fontconfig/conf.d/

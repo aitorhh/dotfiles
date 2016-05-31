@@ -1,3 +1,5 @@
+export PATH=$PATH:~/.local/bin
+
 # load custom executable functions
 for function in ~/.zsh/functions/*; do
   source $function
@@ -44,3 +46,5 @@ _load_settings "$HOME/.zsh/configs"
 
 # Local config
 [[ -f ~/.zshrc.local ]] && source ~/.zshrc.local
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

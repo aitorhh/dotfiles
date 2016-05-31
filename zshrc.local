@@ -1,0 +1,5 @@
+# Source the virtualenwrapper from .local
+source ~/.local/bin/virtualenvwrapper.sh
+
+# Load antigen-hs framework: https://github.com/Tarrasch/antigen-hs
+source ~/.zsh/antigen-hs/init.zsh
