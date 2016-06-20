@@ -3,7 +3,7 @@ set +x
 read -s -p "Enter Password for sudo: " sudoPW
 
 # Install all apt-get dependencies
-DEPENDECIES="git zsh ghc cabal-install silversearcher-ag"
+DEPENDECIES="git zsh ghc cabal-install silversearcher-ag tig python2.7 python-pip"
 echo $sudoPW | sudo -S apt-get install -y $DEPENDECIES
 
 # Install pip dependencies to user and system
@@ -17,6 +17,12 @@ cabal install base text directory filepath process
 # Install powerline
 LOCAL_POWERLINE_CFG=~/.config/powerline
 [ ! -f $LOCAL_POWERLINE_CFG ] || ln -s ~/dotfiles/powerline/config_files $LOCAL_POWERLINE_CFG 
+
+# Install rcm from repo
+wget https://thoughtbot.github.io/rcm/debs/rcm_1.3.0-1_all.deb
+sha=$(sha256sum rcm_1.3.0-1_all.deb | cut -f1 -d' ')
+[ "$sha" = "2e95bbc23da4a0b995ec4757e0920197f4c92357214a65fedaf24274cda6806d" ] && \
+sudo dpkg -i rcm_1.3.0-1_all.deb
 
 # Install using rcup tool
 env RCRC=$HOME/dotfiles/rcrc rcup
