@@ -2,8 +2,15 @@
 set +x
 read -s -p "Enter Password for sudo: " sudoPW
 
+# Add ppa
+if ! which rcup &>/dev/null ; then
+  sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
+  sudo apt-get update
+fi
+
 # Install all apt-get dependencies
-DEPENDECIES="git zsh ghc cabal-install silversearcher-ag tig python2.7 python-pip"
+DEPENDECIES="git zsh ghc cabal-install silversearcher-ag tig python2.7
+python-pip rcm tmux"
 echo $sudoPW | sudo -S apt-get install -y $DEPENDECIES
 
 # Install pip dependencies to user and system
@@ -33,3 +40,16 @@ FZF_REPO='~/.fzf'
 if [ -f $FZF_REPO ]; then
   ./fzf/install -all
 fi
+
+# Install pyenv plugins
+git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
+git clone https://github.com/yyuu/pyenv-virtualenvwrapper.git ~/.pyenv/plugins/pyenv-virtualenvwrapper
+
+# Configure pyenv-virtualenvwrapper
+pyenv virtualenvwrapper
+
+# Change ubuntu configuration
+ gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+
+ # Update the fonts
+ fc-cache -vf ~/.fonts/

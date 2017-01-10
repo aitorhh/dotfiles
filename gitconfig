@@ -21,3 +21,6 @@
   template = ~/.gitmessage
 [include]
   path = ~/.gitconfig.local
+[user]
+	name = Aitor Hernandez
+	email = aitor.hernandez.herranz@ericsson.com

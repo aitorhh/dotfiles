@@ -1,5 +1,26 @@
-# Source the virtualenwrapper from .local
-source ~/.local/bin/virtualenvwrapper.sh
-
 # Load antigen-hs framework: https://github.com/Tarrasch/antigen-hs
 source ~/.zsh/antigen-hs/init.zsh
+
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$HOME/bin:$PATH"
+source /home/eaither/.rvm/scripts/rvm
+
+
+export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+
+# load pyenv if available
+if which pyenv &>/dev/null ; then
+  eval "$(pyenv init -)"
+  eval "$(pyenv virtualenv-init -)"
+  pyenv virtualenvwrapper
+fi
+
+# load solarized light theme
+eval `dircolors ~/.solarized/dircolors-solarized/dircolors.ansi-light`
+
+export TERM=xterm-256color
+if ! { [ -n "$TMUX" ]; } then
+  exec tmux new -A -s default
+fi
+
+export SSLKEYLOGFILE=~/.ssl/sslkeylog.log

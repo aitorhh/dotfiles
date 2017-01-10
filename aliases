@@ -8,12 +8,17 @@ alias v="$VISUAL"
 # Bundler
 alias b="bundle"
 
+
 # Rails
 alias migrate="rake db:migrate db:rollback && rake db:migrate db:test:prepare"
 alias s="rspec"
 
 # Pretty print the path
 alias path='echo $PATH | tr -s ":" "\n"'
+
+# eaither
+alias weather="curl http://wttr.in/Stockholm"
+alias nmap_scan="nmap -sP 192.168.40.1/24"
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local

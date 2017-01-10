@@ -1,10 +1,22 @@
 " Leader
 let mapleader = " "
 
+set cursorline
+set cursorcolumn
+
 set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
-set nowritebackup
-set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
+
+" remove whitespace
+autocmd FileType c,cpp,python,ruby,java,javascript,rst autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+" store temporal files in central spot
+set backup
+set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,.
+set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,.
+" keep undofile after close/open
+set undofile
+set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,.
+
 set history=50
 set ruler         " show the cursor position all the time
 set showcmd       " display incomplete commands
@@ -12,11 +24,25 @@ set incsearch     " do incremental searching
 set laststatus=2  " Always display the status line
 set autowrite     " Automatically :write before running commands
 
+" Softtabs, 4 spaces
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+" Display extra whitespace
+"set list listchars=tab:»·,trail:·,nbsp:·
+
+" Use one space, not two, after punctuation.
+set nojoinspaces
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
 if (&t_Co > 2 || has("gui_running")) && !exists("syntax_on")
   syntax on
 endif
+
+" enable filetype plugin indentation
+filetype plugin indent on
 
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
@@ -26,8 +52,6 @@ endif
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
-
-filetype plugin indent on
 
 augroup vimrcEx
   autocmd!
@@ -50,17 +74,6 @@ augroup END
 " shell for syntax highlighting purposes.
 let g:is_posix = 1
 
-" Softtabs, 2 spaces
-set tabstop=2
-set shiftwidth=2
-set shiftround
-set expandtab
-
-" Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
-
-" Use one space, not two, after punctuation.
-set nojoinspaces
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -74,13 +87,9 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-" Make it obvious where 80 characters is
-set textwidth=80
-set colorcolumn=+1
-
 " Numbers
 set number
-set numberwidth=5
+set numberwidth=3
 
 " Tab completion
 " will insert tab at beginning of line,
@@ -129,12 +138,6 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" configure syntastic syntax checking to check on open as well as save
-let g:syntastic_check_on_open=1
-let g:syntastic_html_tidy_ignore_errors=[" proprietary attribute \"ng-"]
-let g:syntastic_eruby_ruby_quiet_messages =
-    \ {"regex": "possibly useless use of a variable in void context"}
-
 " Set spellfile to location that is guaranteed to exist, can be symlinked to
 " Dropbox or kept in Git and managed outside of thoughtbot/dotfiles using rcm.
 set spellfile=$HOME/.vim-spell-en.utf-8.add
@@ -148,4 +151,8 @@ set diffopt+=vertical
 " Local config
 if filereadable($HOME . "/.vimrc.local")
   source ~/.vimrc.local
+endif
+
+if filereadable(".vimrc.folder")
+  source .vimrc.folder
 endif

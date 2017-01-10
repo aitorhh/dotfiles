@@ -1,3 +1,15 @@
 [submodule "zsh/antigen-hs"]
 	path = zsh/antigen-hs
 	url = https://github.com/Tarrasch/antigen-hs
+[submodule "pyenv"]
+	path = pyenv
+	url = https://github.com/yyuu/pyenv
+[submodule "dircolors-solarized"]
+	path = dircolors-solarized
+	url = https://github.com/seebi/dircolors-solarized
+[submodule "solarized/gnome-terminal-colors-solarized"]
+	path = solarized/gnome-terminal-colors-solarized
+	url = https://github.com/sigurdga/gnome-terminal-colors-solarized
+[submodule "solarized/tmux-colors-solarized"]
+	path = solarized/tmux-colors-solarized
+	url = https://github.com/seebi/tmux-colors-solarized
