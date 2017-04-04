@@ -15,6 +15,8 @@ import Antigen (
 
 bundles =
   [ bundle "Tarrasch/zsh-functional"
+  , bundle "arzzen/calc.plugin.zsh"
+  , bundle "webyneter/docker-aliases.git"
   , bundle "Tarrasch/zsh-bd"
   , bundle "zsh-users/zsh-syntax-highlighting"
   , (bundle "zsh-users/zsh-history-substring-search") { sourcingStrategy = antigenSourcingStrategy }

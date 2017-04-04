@@ -63,7 +63,7 @@ noremap <Leader>W :w !sudo tee % > /dev/null
 
 " make test commands execute using dispatch.vim
 let test#strategy = "vimux"
-let test#python#runner = 'nose'
+let test#python#runner = 'pytest'
 let test#python#nose#options = "--verbose -a '!integration'"
 
 " Save as :W
@@ -77,3 +77,9 @@ map <F2> :NERDTreeToggle<CR>
 set term=screen-256color
 set background=light
 colorscheme solarized
+
+" Configuratino for ymc
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+set autochdir

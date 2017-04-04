@@ -55,6 +55,8 @@ Plug 'Lokaltog/powerline', {'dir': '~/.local/lib/python2.7/site-packages/powerli
 Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
 Plug 'hynek/vim-python-pep8-indent'
+Plug 'stevearc/vim-arduino'
+Plug 'Valloric/YouCompleteMe'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

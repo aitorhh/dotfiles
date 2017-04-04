@@ -1,3 +1,17 @@
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export NVM_DIR="/home/eaither/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export GOPATH=/home/eaither/workspace/golang
+export GOROOT=$GOPATH/go
+export PATH=$PATH:$GOROOT/bin
+export PATH=$PATH:$HOME/node_modules/.bin
+
+export PATH=$PATH:$HOME/.cabal/bin
+export PATH="$PATH:$HOME/workspace/arduino/arduino-1.8.1" # Add arduino to the path
+
 # Load antigen-hs framework: https://github.com/Tarrasch/antigen-hs
 source ~/.zsh/antigen-hs/init.zsh
 
@@ -24,3 +38,7 @@ if ! { [ -n "$TMUX" ]; } then
 fi
 
 export SSLKEYLOGFILE=~/.ssl/sslkeylog.log
+
+# load kubectl autocomplete 
+source < (kubectl completion zsh)
+source /etc/zsh_command_not_found
