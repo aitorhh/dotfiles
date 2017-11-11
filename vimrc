@@ -7,7 +7,7 @@ set cursorcolumn
 set backspace=2   " Backspace deletes like most programs in insert mode
 
 " remove whitespace
-autocmd FileType c,cpp,python,ruby,java,javascript,rst autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType scala,c,cpp,python,ruby,java,javascript,rst autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 " store temporal files in central spot
 set backup
@@ -128,6 +128,12 @@ nnoremap <Leader>r :RunInInteractiveShell<space>
 " Treat <li> and <p> tags like the block tags they are
 let g:html_indent_tags = 'li\|p'
 
+" use ctrlp tag
+map <C-o> :CtrlPTag<cr>
+map <C-i> :TagbarToggle<cr>
+
+set tags=./tags;,tags;
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
@@ -156,3 +162,7 @@ endif
 if filereadable(".vimrc.folder")
   source .vimrc.folder
 endif
+
+
+
+

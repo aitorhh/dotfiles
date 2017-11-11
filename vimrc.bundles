@@ -52,11 +52,18 @@ Plug 'benmills/vimux'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'Lokaltog/powerline', {'dir': '~/.local/lib/python2.7/site-packages/powerline/bindings/vim/'}
-Plug 'xolox/vim-notes'
+"Plug 'xolox/vim-notes'
 Plug 'xolox/vim-misc'
-Plug 'hynek/vim-python-pep8-indent'
+"Plug 'hynek/vim-python-pep8-indent'
 Plug 'stevearc/vim-arduino'
-Plug 'Valloric/YouCompleteMe'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'mzlogin/vim-markdown-toc'
+"Plug 'artur-shaik/vim-javacomplete2'
+" https://github.com/derekwyatt/vim-scala
+Plug 'derekwyatt/vim-scala'
+Plug 'luochen1990/rainbow'
+Plug 'craigemery/vim-autotag'
+"Plug 'majutsushi/tagbar'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local

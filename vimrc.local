@@ -1,3 +1,5 @@
+let g:rainbow_active = 1 "0 if you want to enable it later via :RainbowToggle
+
 " Config for vim-notes
 """"""""""""""""""""""
 let g:notes_directories = ['~/Documents/notes', '~/Dropbox/notes']
@@ -52,6 +54,9 @@ let g:pymode_folding = 0
 " Disable colorcolum
 let g:pymode_options_colorcolumn = 0
 
+" udpate toc automatically
+let g:vmt_auto_update_on_save = 1
+
 "set <F12> to toggle between 'paste' and 'nopaste'
 set pastetoggle=<F12>
 
@@ -75,11 +80,55 @@ map <F2> :NERDTreeToggle<CR>
 
 " Solarized configuration
 set term=screen-256color
-set background=light
+set background=dark
 colorscheme solarized
+call togglebg#map("<F5>")
+
 
 " Configuratino for ymc
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ycm_collect_identifiers_from_tags_files = 1
 
-set autochdir
+" Configuratino for javacomplete2
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+
+nmap <F4> <Plug>(JavaComplete-Imports-AddSmart)
+nmap <F5> <Plug>(JavaComplete-Imports-Add)
+nmap <F6> <Plug>(JavaComplete-Imports-AddMissing)
+nmap <F7> <Plug>(JavaComplete-Imports-RemoveUnused)
+
+" Configuratino for scala
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:scala_scaladoc_indent = 2
+
+" https://github.com/pjrt/stags
+function! QualifiedTagJump() abort
+  let l:plain_tag = expand("<cword>")
+  let l:orig_keyword = &iskeyword
+  set iskeyword+=\.
+  let l:word = expand("<cword>")
+  let &iskeyword = l:orig_keyword
+
+  let l:splitted = split(l:word, '\.')
+  let l:acc = []
+  for wo in l:splitted
+    let l:acc = add(l:acc, wo)
+    if wo ==# l:plain_tag
+      break
+    endif
+  endfor
+
+  let l:combined = join(l:acc, ".")
+  try
+    execute "ta " . l:combined
+  catch /.*E426.*/ " Tag not found
+    execute "ta " . l:plain_tag
+  endtry
+endfunction
+
+nnoremap <silent> <C-]> :<C-u>call QualifiedTagJump()<CR>
+
+" Configuration for autotags
+""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:autotagTagsFile="tags"

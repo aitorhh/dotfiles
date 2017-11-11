@@ -39,6 +39,7 @@ fi
 
 export SSLKEYLOGFILE=~/.ssl/sslkeylog.log
 
+source /etc/zsh_command_not_found
+
 # load kubectl autocomplete 
 source < (kubectl completion zsh)
-source /etc/zsh_command_not_found
