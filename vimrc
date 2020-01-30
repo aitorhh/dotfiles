@@ -7,15 +7,19 @@ set cursorcolumn
 set backspace=2   " Backspace deletes like most programs in insert mode
 
 " remove whitespace
-autocmd FileType scala,c,cpp,python,ruby,java,javascript,rst autocmd BufWritePre <buffer> :%s/\s\+$//e
+autocmd FileType scala,c,cpp,python,ruby,java,javascript,rst,yaml autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+" remote tabs in yaml
+autocmd FileType yaml execute  ':silent! %s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
+"autocmd FileType json autocmd BufWritePre <buffer> %!python -m json.tool
 
 " store temporal files in central spot
 set backup
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,.
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,.
+set backupdir=~/.vim-tmp,~/.tmp
+set directory=~/.vim-tmp,~/.tmp
 " keep undofile after close/open
 set undofile
-set undodir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp,.
+set undodir=~/.vim-tmp,~/.tmp
 
 set history=50
 set ruler         " show the cursor position all the time
@@ -72,6 +76,8 @@ augroup END
 
 " When the type of shell script is /bin/sh, assume a POSIX-compatible
 " shell for syntax highlighting purposes.
+" EAITHER: to fix an issue with the start time in zsh
+"set shell=/bin/bash\ -i
 let g:is_posix = 1
 
 
