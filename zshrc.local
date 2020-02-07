@@ -1,3 +1,6 @@
+
+#zmodload zsh/zprof
+
 # zsh antigen manager
 source ~/.zsh/antigen-hs/init.zsh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -5,31 +8,51 @@ source ~/.zsh/antigen-hs/init.zsh
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 # https://github.com/creationix/nvm 
+
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ ! -r ~/.nvm/nvm.sh ] || {
+    function nvm() {
+        unset -f nvm node npm
+        . ~/.nvm/nvm.sh
+        nvm use node >/dev/null
+        [ ! -r ~/.nvm/bash_completion ] || . ~/.nvm/bash_completion
+        nvm ${1+"$@"}
+    }
+
+    function node() {
+        nvm --version >/dev/null 2>&1
+        node ${1+"$@"}
+    }
+
+    function npm() {
+        nvm --version >/dev/null 2>&1
+        npm ${1+"$@"}
+    }
+}
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH=$PATH:$GOBIN
 export PATH=$PATH:$HOME/node_modules/.bin
 
 export PATH=$PATH:$HOME/.cabal/bin
-export PATH="$PATH:$HOME/workspace/arduino/arduino-1.8.1" # Add arduino to the path
+#export PATH="$PATH:$HOME/workspace/arduino/arduino-1.8.1" # Add arduino to the path
 
 # Load antigen-hs framework: https://github.com/Tarrasch/antigen-hs
 source ~/.zsh/antigen-hs/init.zsh
 
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$HOME/bin:$PATH"
-source $HOME/.rvm/scripts/rvm
+#source $HOME/.rvm/scripts/rvm
 
 # before goroot
-export GOPATH=$HOME/workspace/golang
+#export GOPATH=$HOME/workspace/golang
 #export GOROOT=$GOPATH/go
 #export GOBIN=$GOROOT/bin
 # goenv tool
-export GOENV_ROOT="$HOME/.goenv"
-export PATH="$GOENV_ROOT/bin:$PATH"
-eval "$(goenv init -)"
+#export GOENV_ROOT="$HOME/.goenv"
+#export PATH="$GOENV_ROOT/bin:$PATH"
+#eval "$(goenv init -)"
 
 
 export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
@@ -41,20 +64,34 @@ if which pyenv &>/dev/null ; then
   pyenv virtualenvwrapper
 fi
 
-# load solarized light theme
-eval `dircolors ~/.solarized/dircolors-solarized/dircolors.ansi-light`
+# load solarized
+#eval `dircolors ~/.solarized/dircolors/dircolors.256dark`
 
 # tmux configuration
 export TMUX_TMPDIR=~/.tmux/tmp
-export TERM=xterm-256color
+export TERM=screen-256color
+#export TERM=xterm-256color
+
 if ! { [ -n "$TMUX" ]; } then
   exec tmux new -A -s default
 fi
+
+# for solarized light
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=180"
+# for solarized dark
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=5"
+
+# bind to autosuggest
+bindkey '^ ' autosuggest-accept
 
 export SSLKEYLOGFILE=~/.ssl/sslkeylog.log
 
 source /etc/zsh_command_not_found
 
 # load kubectl autocomplete 
-source ~/credentials/kubernetes local
-if [ /usr/bin/kubectl ]; then source <(kubectl completion zsh); fi
+if which kubectl &>/dev/null ; then
+    source ~/credentials/kubernetes local
+    source <(kubectl completion zsh); 
+fi
+
+#zprof

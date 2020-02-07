@@ -3,7 +3,7 @@ sudo add-apt-repository ppa:martin-frost/thoughtbot-rcm
 sudo apt-get update
 
 # Install dependecies
-DEPENDENCIES="zsh pip ghc cabal-install tmux vim fontsconfig rcm"
+DEPENDENCIES="zsh python-pip ghc cabal-install tmux vim fontconfig rcm"
 
 sudo apt-get install -y $DEPENDENCIES
 

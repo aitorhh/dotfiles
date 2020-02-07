@@ -1,6 +1,6 @@
 #!/bin/bash
 set +x
-read -s -p "Enter Password for sudo: " sudoPW
+sudo ls
 
 # Add ppa
 if ! which rcup &>/dev/null ; then
@@ -11,11 +11,12 @@ fi
 # Install all apt-get dependencies
 DEPENDECIES="git zsh ghc cabal-install silversearcher-ag tig python2.7
 python-pip rcm tmux"
-echo $sudoPW | sudo -S apt-get install -y $DEPENDECIES
+sudo -S apt-get install -y $DEPENDECIES
 
 # Install pip dependencies to user and system
 pip install --user powerline-status
-echo $sudoPW | sudo -S pip install virtualenvwrapper
+git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+sudo -S pip install virtualenvwrapper
 
 # Update cabal
 cabal update
@@ -25,9 +26,6 @@ cabal install base text directory filepath process
 LOCAL_POWERLINE_CFG=~/.config/powerline
 [ ! -f $LOCAL_POWERLINE_CFG ] || ln -s ~/dotfiles/powerline/config_files $LOCAL_POWERLINE_CFG 
 
-# Install using rcup tool
-env RCRC=$HOME/dotfiles/rcrc rcup
-
 # Install fzf in the termnial
 # Check if it fzf repo was downloaded for the vim plugin
 FZF_REPO='~/.fzf'
@@ -35,6 +33,22 @@ if [ -f $FZF_REPO ]; then
   ./fzf/install -all
 fi
 
+# create temp folder for vim swap files
+mkdir -p ~/.vim-tmp
+mkdir -p ~/.tmp
+
+# Install solarized themes
+git clone git://github.com/altercation/solarized.git ~/.solarized
+git submodule update --init ~/.solarized/vim-colors-solarized
+git submodule update --init ~/.solarized/tmux
+
+#git clone https://github.com/aruhier/gnome-terminal-colors-solarized.git ~/.solarized/gnome-terminal-colors
+#~/.solarized/gnome-terminal-colors/install.sh --install-dircolors -s dark -p Aitor
+
+setupsolarize dircolors.256dark
+
+
+ 
 # Install pyenv plugins
 git clone https://github.com/yyuu/pyenv-virtualenv.git ~/.pyenv/plugins/pyenv-virtualenv
 git clone https://github.com/yyuu/pyenv-virtualenvwrapper.git ~/.pyenv/plugins/pyenv-virtualenvwrapper
@@ -43,7 +57,11 @@ git clone https://github.com/yyuu/pyenv-virtualenvwrapper.git ~/.pyenv/plugins/p
 pyenv virtualenvwrapper
 
 # Change ubuntu configuration
- gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
+ #gsettings set org.gnome.desktop.wm.preferences button-layout ":minimize,maximize,close"
 
  # Update the fonts
  fc-cache -vf ~/.fonts/
+
+
+# Install using rcup tool
+env RCRC=$HOME/dotfiles/rcrc rcup

@@ -76,3 +76,5 @@ MSG
 fi
 
 unset _old_path
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -15,10 +15,11 @@ import Antigen (
 
 bundles =
   [ bundle "Tarrasch/zsh-functional"
-  , bundle "arzzen/calc.plugin.zsh"
   , bundle "webyneter/docker-aliases.git"
   , bundle "Tarrasch/zsh-bd"
-  , bundle "zsh-users/zsh-syntax-highlighting"
+  , bundle "zsh-users/zsh-autosuggestions"
+  , bundle "zsh-users/zsh-syntax-highlighting.git"
+  , bundle "joel-porquet/zsh-dircolors-solarized.git"
   , (bundle "zsh-users/zsh-history-substring-search") { sourcingStrategy = antigenSourcingStrategy }
 
   -- If you use a plugin that doesn't have a *.plugin.zsh file. You can set a

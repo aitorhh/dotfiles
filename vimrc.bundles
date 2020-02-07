@@ -63,6 +63,7 @@ Plug 'derekwyatt/vim-scala'
 Plug 'craigemery/vim-autotag'
 Plug 'leafgarland/typescript-vim'
 "Plug 'majutsushi/tagbar'
+Plug 'aklt/plantuml-syntax'
 
 if filereadable(expand("~/.vimrc.bundles.local"))
   source ~/.vimrc.bundles.local
